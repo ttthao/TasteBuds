@@ -19,7 +19,6 @@ def callback():
         'grant_type':    'authorization_code',
         'code':          authorization_code,
         'redirect_uri':  'http://127.0.0.1:5000/callback',
-        'scope':         'report:eye-color',
     }
     response = requests.post(token_url, data=payload)
     token = response.json()
