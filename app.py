@@ -1,35 +1,38 @@
-import os
-import requests
-from flask import Flask, render_template_string, request, redirect, url_for
+import genomelink
+from flask import Flask, render_template, request, redirect, session, url_for
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return render_template_string('<a href="https://genomicexplorer.io/oauth/authorize?redirect_uri=http://127.0.0.1:5000/callback&client_id={{ client_id }}&response_type=code&scope=report:eye-color">Get my eye color report via GenomeLink</a>', client_id=os.environ['CLIENT_ID'])
+    authorize_url = genomelink.OAuth.authorize_url(scope=['report:eye-color report:beard-thickness report:morning-person'])
+
+    # Fetching a protected resource using an OAuth2 token if exists.
+    reports = []
+    if session.get('oauth_token'):
+        for name in ['eye-color', 'beard-thickness', 'morning-person']:
+            reports.append(genomelink.Report.fetch(name=name, population='european', token=session['oauth_token']))
+
+    return render_template('index.html', authorize_url=authorize_url, reports=reports)
 
 @app.route('/callback')
 def callback():
-    authorization_code = request.args.get('code')
+    # The user has been redirected back from the provider to your registered
+    # callback URL. With this redirection comes an authorization code included
+    # in the request URL. We will use that to obtain an access token.
+    token = genomelink.OAuth.token(request_url=request.url)
 
-    token_url = 'https://genomicexplorer.io/oauth/token'
-    payload = {
-        'client_id':     os.environ['CLIENT_ID'],
-        'client_secret': os.environ['CLIENT_SECRET'],
-        'grant_type':    'authorization_code',
-        'code':          authorization_code,
-        'redirect_uri':  'http://127.0.0.1:5000/callback',
-    }
-    response = requests.post(token_url, data=payload)
-    token = response.json()
-
-    report_url = 'https://genomicexplorer.io/v1/reports/eye-color/?population=european'
-    headers = {
-        'Authorization': 'Bearer {}'.format(token['access_token'])
-    }
-    response = requests.get(report_url, headers=headers)
-    report = response.json()
-
-    print report
-
+    # At this point you can fetch protected resources but lets save
+    # the token and show how this is done from a persisted token in index page.
+    session['oauth_token'] = token
     return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    # This allows us to use a plain HTTP callback.
+    import os
+    os.environ['DEBUG'] = "1"
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
+    # Run local server on port 5000.
+    app.secret_key = os.urandom(24)
+    app.run(debug=True)

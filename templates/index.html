@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <p class="lead">GENOME LINK example</p>
+      </div>
+
+      {% if not reports %}
+      <a href="{{ authorize_url }}" class="btn btn-default">Connect with genome</a>
+      {% else %}
+      <table class="table">
+        <caption>Genome</caption>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Genetic insights</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for report in reports %}
+          <tr>
+            <th scope="row">{{ report.phenotype.display_name }}</th>
+            <td>{{ report.summary.text }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+
+    </div>
+  </body>
+</html>
