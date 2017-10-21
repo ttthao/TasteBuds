@@ -6,14 +6,14 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     reportScope = ['report:bitter-taste report:bmi report:caffeine-consumption report:carbohydrate-intake report:extraversion report:openness report:protein-intake report:red-wine-liking report:smell-sensitivity-for-malt']
-    reportNames = ['bitter-taste bmi caffeine-consumption carbohydrate-intake extraversion openness protein-intake red-wine-liking smell-sensitivity-for-malt']
+    reportNames = ['bitter-taste, bmi caffeine-consumption, carbohydrate-intake, extraversion, openness, protein-intake, red-wine-liking, smell-sensitivity-for-malt']
 
     authorize_url = genomelink.OAuth.authorize_url(scope=reportScope)
 
     # Fetching a protected resource using an OAuth2 token if exists.
     reports = []
     if session.get('oauth_token'):
-        for name in reportNames = ['report:bitter-taste report:bmi report:caffeine-consumption report:carbohydrate-intake report:extraversion report:openness report:protein-intake report:red-wine-liking report:smell-sensitivity-for-malt']
+        for name in reportNames:
         # for name in ['eye-color', 'beard-thickness', 'morning-person']:
             reports.append(genomelink.Report.fetch(name=name, population='european', token=session['oauth_token']))
 
