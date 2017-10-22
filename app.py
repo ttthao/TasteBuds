@@ -19,7 +19,18 @@ def index():
         for name in report_names:
         # for name in ['eye-color', 'beard-thickness', 'morning-person']:
             reports.append(genomelink.Report.fetch(name=name, population='european', token=session['gl_token']))
+
+    # Get user genome
     vector_pop(reports)
+
+    # Read category weights
+    # weights = np.loadtxt(open("data/ReducedCategoryWeights.csv", "rb"), delimiter=",", skiprows=1)
+
+    # Calculate matrix multiplication
+
+    # Sort by largest
+
+    # Call Yelp with top 5 categories
 
     # Yelp stuff
     yelp_businesses = []
