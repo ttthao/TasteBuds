@@ -1,0 +1,26 @@
+category,bitter taste,meatyness,caffeine consumption,carb intake,extraversion,openness,protein intake,red wine liking,malt sense
+acaibowls,0.1,0,0,0,0.3,0.3,0,0.3,0
+bakeries,0,0,0,0.4,0.3,0.1,0.2,0,0
+breweries,0.3,0,0,0.1,0.5,0,0,0,0.1
+bubbletea,0,0,0.3,0.3,0.3,0,0.1,0,0
+cideries,0.1,0,0,0.3,0.2,0,0,0.4,0
+coffee,0.2,0,0.5,0.1,0.2,0,0,0,0
+desserts,0.1,0,0.2,0.4,0,0,0.3,0,0
+distilleries,0.2,0,0,0.3,0.2,0,0,0,0.3
+donuts,0,0.1,0.2,0.4,0.1,0,0.2,0,0
+foodtrucks,0,0,0,0.3,0.2,0.2,0.3,0,0
+gelato,0,0,0.2,0.4,0.3,0,0,0.1,0
+icecream,0,0,0,0.4,0.1,0,0.3,0,0.2
+juicebars,0.1,0,0,0.5,0,0.3,0,0.1,0
+poke,0,0.2,0,0.3,0,0.1,0.4,0,0
+pretzels,0,0,0,0.5,0,0.1,0.1,0,0.3
+shavedice,0,0,0,0.7,0.1,0.1,0,0,0.1
+smokehouse,0.2,0.2,0,0.3,0,0,0.3,0,0
+gourmet,0,0.2,0,0,0.2,0,0.3,0.3,0
+candy,0,0,0,0.5,0.2,0.2,0,0,0.1
+cheese,0,0.1,0,0.2,0,0,0.5,0.2,0
+chocolate,0.4,0,0.4,0.1,0,0,0,0.1,0
+macarons,0,0,0,0.6,0.1,0.2,0.1,0,0
+pastashops,0,0,0,0.3,0.1,0,0.3,0.1,0.2
+seafoodmarkets,0,0.1,0,0,0,0.1,0.7,0.1,0
+wineries,0,0,0.3,0,0.1,0,0.1,0.5,0

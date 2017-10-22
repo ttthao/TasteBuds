@@ -1,6 +1,7 @@
 import genomelink
 import json
 import numpy as np
+import pandas
 from flask import Flask, render_template, request, redirect, session, url_for
 from requests_oauthlib import OAuth2Session
 app = Flask(__name__)
@@ -19,12 +20,40 @@ def index():
         for name in report_names:
         # for name in ['eye-color', 'beard-thickness', 'morning-person']:
             reports.append(genomelink.Report.fetch(name=name, population='european', token=session['gl_token']))
+
+    # Get user genome
     vector_pop(reports)
+
+    # Read category weights
+    # weights = np.loadtxt(open("data/ReducedCategoryWeights.csv", "rb"), delimiter=",", skiprows=1)
+
+    # Calculate matrix multiplication
+
+    # Sort by largest
+
+    # Call Yelp with top 5 categories
 
     # Yelp stuff
     yelp_businesses = []
     if session.get('yelp_token'):
-        path = 'https://api.yelp.com/v3/businesses/search?latitude={latitude}&longitude={longitude}'.format(latitude='32.826382', longitude='-117.129813')
+        input = np.matrix([4, 3, 2, 2, 2, 2, 0, 2, 2]).T
+        # Read category weights
+        weights = pandas.read_csv("data/ReducedCategoryWeights.csv", sep=",")#,skiprows=1)
+        weights = weights.drop(weights.columns[0],axis=1)
+
+
+        category =  pandas.read_csv("data/ReducedCategoryWeights.csv", sep=",",skiprows=1)
+        category = category.drop(category.columns[1:-1],axis=1).drop(category.columns[-1],axis=1)
+        weights = weights.values
+        category = category.values
+        category.tolist
+
+        labels = weights * input
+        out = zip(labels, category)
+        out = sorted(out, key = lambda x: x[0], reverse=True)
+        out = [out[i][1][0] for i in range(5)]
+        out = ','.join(out)
+        path = 'https://api.yelp.com/v3/businesses/search?latitude={latitude}&longitude={longitude}&categories={categories}'.format(latitude='32.826382', longitude='-117.129813', categories=out)
         yelp_session = OAuth2Session(token=session['yelp_token'])
         yelp_search_response = yelp_session.get(path).json()
         yelp_businesses = yelp_search_response['businesses']
