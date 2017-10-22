@@ -1,12 +1,14 @@
 import genomelink
+import json
+import numpy as np
 from flask import Flask, render_template, request, redirect, session, url_for
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    reportScope = ['report:bitter-taste report:bmi report:caffeine-consumption report:carbohydrate-intake report:extraversion report:openness report:protein-intake report:red-wine-liking report:smell-sensitivity-for-malt']
-    reportNames = ['bitter-taste', 'bmi', 'caffeine-consumption', 'carbohydrate-intake', 'extraversion', 'openness', 'protein-intake', 'red-wine-liking', 'smell-sensitivity-for-malt']
+    reportScope = ['report:bitter-taste report:conscientiousness report:caffeine-consumption report:carbohydrate-intake report:extraversion report:openness report:protein-intake report:red-wine-liking report:smell-sensitivity-for-malt']
+    reportNames = ['bitter-taste', 'conscientiousness', 'caffeine-consumption', 'carbohydrate-intake', 'extraversion', 'openness', 'protein-intake', 'red-wine-liking', 'smell-sensitivity-for-malt']
 
     authorize_url = genomelink.OAuth.authorize_url(scope=reportScope)
 
@@ -16,7 +18,7 @@ def index():
         for name in reportNames:
         # for name in ['eye-color', 'beard-thickness', 'morning-person']:
             reports.append(genomelink.Report.fetch(name=name, population='european', token=session['oauth_token']))
-
+    vector_pop(reports)
     return render_template('index.html', authorize_url=authorize_url, reports=reports)
 
 @app.route('/callback')
@@ -30,6 +32,15 @@ def callback():
     # the token and show how this is done from a persisted token in index page.
     session['oauth_token'] = token
     return redirect(url_for('index'))
+
+def vector_pop(reports):
+    # Takes a list of json objects as an input that will contain a summary of the
+    # specific describing attribute obtained from the mystery person's genome. 
+    # Rip out the scores and put them in a vector.
+    scores = []
+    for report in reports:
+        scores.append(int(report.summary['score']))
+    print scores
 
 if __name__ == '__main__':
     # This allows us to use a plain HTTP callback.
