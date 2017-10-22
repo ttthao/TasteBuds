@@ -1,1 +1,8 @@
 genomelink # directory /home/joshua/miniconda2/lib/python2.7/site-packages/genomelink
+
+
+google map api: AIzaSyA_NL2OmHERRtU7Q7M1fv8KzsKBkpKaF5c
+The way to input the api key:
+https://www.google.com/maps/embed/v1/MODE?key=YOUR_API_KEY&parameters
+https://www.google.com/maps/embed/v1/MODE?key=AIzaSyA_NL2OmHERRtU7Q7M1fv8KzsKBkpKaF5c&parameters
+
