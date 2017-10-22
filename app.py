@@ -8,8 +8,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    report_scope = ['report:bitter-taste report:caffeine-consumption report:carbohydrate-intake report:extraversion report:openness report:protein-intake report:red-wine-liking report:smell-sensitivity-for-malt report:conscientiousness report:openness']
-    report_names = ['bitter-taste', 'caffeine-consumption', 'carbohydrate-intake', 'extraversion', 'openness', 'protein-intake', 'red-wine-liking', 'smell-sensitivity-for-malt', 'conscientiousness', 'openness']
+    report_scope = ['report:bitter-taste report:caffeine-consumption report:carbohydrate-intake report:extraversion report:openness report:protein-intake report:red-wine-liking report:smell-sensitivity-for-malt report:conscientiousness report:morning-person']
+    report_names = ['bitter-taste', 'caffeine-consumption', 'carbohydrate-intake', 'extraversion', 'openness', 'protein-intake', 'red-wine-liking', 'smell-sensitivity-for-malt', 'conscientiousness', 'morning-person']
 
     authorize_url = genomelink.OAuth.authorize_url(scope=report_scope)
 
@@ -31,7 +31,7 @@ def index():
 
         # with open('yelp_search.txt', 'w') as outfile:
             # json.dump(yelp_search_response, outfile)
-        
+
     return render_template('index.html', authorize_url=authorize_url, reports=reports, businesses=yelp_businesses)
 
 @app.route('/callback')
@@ -60,7 +60,7 @@ def callback():
 
 def vector_pop(reports):
     # Takes a list of json objects as an input that will contain a summary of the
-    # specific describing attribute obtained from the mystery person's genome. 
+    # specific describing attribute obtained from the mystery person's genome.
     # Rip out the scores and put them in a vector.
     scores = []
     for report in reports:

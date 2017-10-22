@@ -15,59 +15,64 @@
     {% if not reports %}
     <a href="{{ authorize_url }}" class="btn btn-default">Connect with genome</a>
     {% else %}
-    <table class="table">
-      <caption>Genome</caption>
-      <thead>
-        <tr>
-          <th>Phenotype Name</th>
-          <th>Phenotype Category</th>
-          <th>Genetic insights</th>
-          <th>Phenotype Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for report in reports %}
-        <tr>
-          <th scope="row">{{ report.phenotype.display_name }}</th>
-          <td>{{ report.phenotype.category }}</td>
-          <td>{{ report.summary.text }}</td>
-          <td>{{ report.summary.score }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-    {% if not businesses %}
-    <p>No business listings!</p>
-    {% else %}
-    <table class="table">
-      <caption>Yelp</caption>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Rating</th>
-          <th>Reviews</th>
-          <th>Price</th>
-          <th>Distance</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for business in businesses %}
-        <tr>
-          <th scope="row">{{ business.name }}</th>
-          <td>{{ business.rating }}</td>
-          <td>{{ business.review_count }}</td>
-          <td>{{ business.price }}</td>
-          <td>{{ business.distance }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <div Id="box">
-      <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA_NL2OmHERRtU7Q7M1fv8KzsKBkpKaF5c&q=Space+
+    <div class="col-md-6">
+    <div class ="table-responsive">
+      <table class="table">
+        <caption>Genome</caption>
+        <thead>
+          <tr>
+            <th>Phenotype Name</th>
+            <th>Phenotype Category</th>
+            <th>Genetic insights</th>
+            <th>Phenotype Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for report in reports %}
+          <tr>
+            <th scope="row">{{ report.phenotype.display_name }}</th>
+            <td>{{ report.phenotype.category }}</td>
+            <td>{{ report.summary.text }}</td>
+            <td>{{ report.summary.score }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+      {% if not businesses %}
+      <p>No business listings!</p>
+      {% else %}
+    <div class="col-md-6">
+    <div class="table-responsive">
+      <table class="table">
+        <caption>Yelp</caption>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>Reviews</th>
+            <th>Price</th>
+            <th>Distance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for business in businesses %}
+          <tr>
+            <th scope="row">{{ business.name }}</th>
+            <td>{{ business.rating }}</td>
+            <td>{{ business.review_count }}</td>
+            <td>{{ business.price }}</td>
+            <td>{{ business.distance }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+      <iframe width="900" height="675" frameborder="0" style="margin: auto;" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA_NL2OmHERRtU7Q7M1fv8KzsKBkpKaF5c&q=Space+
 		Needle,Seatle+WA" allowfullscreen>
       </iframe>
-    </div>
     {% endif %} {% endif %}
   </div>
 </body>
