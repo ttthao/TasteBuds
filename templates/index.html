@@ -6,7 +6,7 @@
   <body>
     <div class="container">
       <div class="page-header">
-        <p class="lead">GENOME LINK example</p>
+        <p class="lead">Tastebuds</p>
       </div>
 
       {% if not reports %}
@@ -33,6 +33,34 @@
           {% endfor %}
         </tbody>
       </table>
+
+      {% if not businesses %}
+      <p>No business listings!</p>
+      {% else %}
+      <table class="table">
+        <caption>Yelp</caption>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>Reviews</th>
+            <th>Price</th>
+            <th>Distance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for business in businesses %}
+          <tr>
+            <th scope="row">{{ business.name }}</th>
+            <td>{{ business.rating }}</td>
+            <td>{{ business.review_count }}</td>
+            <td>{{ business.price }}</td>
+            <td>{{ business.distance }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
       {% endif %}
 
     </div>

@@ -20,17 +20,17 @@ def index():
             reports.append(genomelink.Report.fetch(name=name, population='european', token=session['gl_token']))
 
     # Yelp stuff
-    # if session['yelp_token'] == str:
-        # yelp_token = {'token_type': 'Bearer', 'access_token': session['yelp_token']}
+    yelp_businesses = []
     if session.get('yelp_token'):
         path = 'https://api.yelp.com/v3/businesses/search?latitude={latitude}&longitude={longitude}'.format(latitude='32.826382', longitude='-117.129813')
         yelp_session = OAuth2Session(token=session['yelp_token'])
         yelp_search_response = yelp_session.get(path).json()
+        yelp_businesses = yelp_search_response['businesses']
 
-        with open('yelp_search.txt', 'w') as outfile:
-            json.dump(yelp_search_response, outfile)
-
-    return render_template('index.html', authorize_url=authorize_url, reports=reports)
+        # with open('yelp_search.txt', 'w') as outfile:
+            # json.dump(yelp_search_response, outfile)
+        
+    return render_template('index.html', authorize_url=authorize_url, reports=reports, businesses=yelp_businesses)
 
 @app.route('/callback')
 def callback():
@@ -54,7 +54,6 @@ def callback():
                                 authorization_response=path)
 
     session['yelp_token'] = yelp_token
-
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
