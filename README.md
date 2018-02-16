@@ -17,8 +17,3 @@ python app.py
 
 ```
 
-Yelp
-
-Client id: yncucN0peQa4V7SheHiC5Q
-Client secret: hdLmWEMfOTcG6VMtIeuZJ7cXOAtgEYRQH2YnHFmiibtye6GkU7nFfoESzxI0MHYk
-
